@@ -1,0 +1,7 @@
+site_name: fbexport-tool Docs
+
+theme:
+  name: "material"
+
+plugins:
+  - mkdocstrings

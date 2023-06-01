@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module fbexport-tool</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">fbexport-tool</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:/home/isra/repl/fbexport-tool/fbexport-tool.py">/home/isra/repl/fbexport-tool/fbexport-tool.py</a></td></tr></table>
+    <p><span class="code">fbexport-tool.py<br>
+&nbsp;<br>
+A&nbsp;tool&nbsp;to&nbsp;export&nbsp;data&nbsp;from&nbsp;a&nbsp;firebird&nbsp;database&nbsp;in&nbsp;bulk.&nbsp;Run&nbsp;`fbexport-tool.py&nbsp;-h`&nbsp;to<br>
+see&nbsp;details&nbsp;on&nbsp;how&nbsp;to&nbsp;use.<br>
+&nbsp;<br>
+The&nbsp;input&nbsp;to&nbsp;this&nbsp;programm&nbsp;is&nbsp;an&nbsp;fdb&nbsp;database&nbsp;and&nbsp;a&nbsp;text&nbsp;file&nbsp;with&nbsp;a&nbsp;list&nbsp;of&nbsp;space<br>
+separated&nbsp;names&nbsp;of&nbsp;tables&nbsp;to&nbsp;be&nbsp;exported&nbsp;or&nbsp;a&nbsp;list&nbsp;of&nbsp;the&nbsp;names&nbsp;of&nbsp;such&nbsp;tables.<br>
+&nbsp;<br>
+This&nbsp;programm&nbsp;is&nbsp;a&nbsp;thin&nbsp;wrap&nbsp;around&nbsp;`fbexport`,&nbsp;so&nbsp;you&nbsp;will&nbsp;need&nbsp;to&nbsp;install&nbsp;it&nbsp;before.<br>
+In&nbsp;case&nbsp;your&nbsp;OS&nbsp;does&nbsp;not&nbsp;ship&nbsp;with&nbsp;this&nbsp;programm,&nbsp;see<br>
+&nbsp;<br>
+<a href="http://www.firebirdfaq.org/fbexport.php">http://www.firebirdfaq.org/fbexport.php</a></span></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="io.html">io</a><br>
+</td><td class="multicolumn"><a href="string.html">string</a><br>
+</td><td class="multicolumn"><a href="subprocess.html">subprocess</a><br>
+</td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-export_cmd"><strong>export_cmd</strong></a>(database: str, destination: str, table: str, password: str = 'masterkey') -&gt; list[str]</dt><dd><span class="code">return&nbsp;a&nbsp;`fbexport`&nbsp;statement&nbsp;suitable&nbsp;for&nbsp;use&nbsp;in&nbsp;the&nbsp;terminal.<br>
+&nbsp;<br>
+Parameters<br>
+&nbsp;<br>
+@param&nbsp;database:&nbsp;Database&nbsp;location&nbsp;or&nbsp;path.<br>
+@password<br>
+@destination:&nbsp;Output&nbsp;location&nbsp;or&nbsp;path.<br>
+@table:&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;table&nbsp;to&nbsp;export.<br>
+&nbsp;<br>
+Returns<br>
+&nbsp;<br>
+A&nbsp;string&nbsp;representing&nbsp;the&nbsp;command&nbsp;that&nbsp;should&nbsp;be&nbsp;executed&nbsp;to&nbsp;commit&nbsp;the&nbsp;export.<br>
+&nbsp;<br>
+Example<br>
+&nbsp;<br>
+&gt;&gt;&gt;&nbsp;<a href="#-export_cmd">export_cmd</a>('database.fbd',&nbsp;destination='database.csv',&nbsp;table='MYTABLE')<br>
+['fbexport',&nbsp;'-H',&nbsp;'',&nbsp;'-Sc',&nbsp;'-J',&nbsp;'Y-M-D',&nbsp;'-D',&nbsp;'database.fbd',&nbsp;'-F',&nbsp;'database.csv',&nbsp;'-V',&nbsp;'MYTABLE']</span></dd></dl>
+ <dl><dt><a name="-extract"><strong>extract</strong></a>(database: str, table: str, outputdir: str, verbose: bool = True)</dt></dl>
+ <dl><dt><a name="-iter_words"><strong>iter_words</strong></a>(stream: _io.TextIOWrapper) -&gt; Iterator[str]</dt><dd><span class="code">Return&nbsp;an&nbsp;iterator&nbsp;to&nbsp;the&nbsp;words&nbsp;contained&nbsp;in&nbsp;`stream`.<br>
+&nbsp;<br>
+Example<br>
+&nbsp;<br>
+&gt;&gt;&gt;&nbsp;from&nbsp;io&nbsp;import&nbsp;StringIO<br>
+&gt;&gt;&gt;&nbsp;buffer&nbsp;=&nbsp;StringIO(initial_value='&nbsp;word1&nbsp;word2&nbsp;\n&nbsp;word3&nbsp;')<br>
+&gt;&gt;&gt;&nbsp;[w&nbsp;for&nbsp;w&nbsp;in&nbsp;<a href="#-iter_words">iter_words</a>(buffer)]<br>
+['word1',&nbsp;'word2',&nbsp;'word3']</span></dd></dl>
+ <dl><dt><a name="-main"><strong>main</strong></a>()</dt></dl>
+ <dl><dt><a name="-outputdir_filename"><strong>outputdir_filename</strong></a>(database: pathlib.Path | str, when: datetime.datetime) -&gt; str</dt><dd><span class="code">Returns&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;output&nbsp;directory&nbsp;in&nbsp;format&nbsp;YYYY-MM-DD-hh-mm-ss-database<br>
+with&nbsp;the&nbsp;database&nbsp;suffix&nbsp;removed.<br>
+If&nbsp;the&nbsp;database&nbsp;name&nbsp;has&nbsp;spaces&nbsp;they&nbsp;are&nbsp;replaced&nbsp;by&nbsp;underscores&nbsp;(i.e.&nbsp;`"database&nbsp;name".fdb`&nbsp;is&nbsp;replaced&nbsp;by&nbsp;`database_name`)<br>
+&nbsp;<br>
+Example<br>
+&nbsp;<br>
+&gt;&gt;&gt;&nbsp;from&nbsp;datetime&nbsp;import&nbsp;datetime<br>
+&gt;&gt;&gt;&nbsp;when&nbsp;=&nbsp;datetime(2023,&nbsp;1,&nbsp;1,&nbsp;14,0,0)<br>
+&gt;&gt;&gt;&nbsp;<a href="#-outputdir_filename">outputdir_filename</a>('database.fdb',&nbsp;when)<br>
+'2023-01-01-14-00-00-database'<br>
+&nbsp;<br>
+&gt;&gt;&gt;&nbsp;<a href="#-outputdir_filename">outputdir_filename</a>('another&nbsp;database.fdb',&nbsp;when)<br>
+'2023-01-01-14-00-00-another_database'</span></dd></dl>
+ <dl><dt><a name="-table_csv_filename"><strong>table_csv_filename</strong></a>(tablename: str) -&gt; str</dt><dd><span class="code">Returns&nbsp;a&nbsp;sanitized&nbsp;version&nbsp;of&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;table.&nbsp;The&nbsp;name&nbsp;is&nbsp;converted&nbsp;to<br>
+lowercase,&nbsp;any&nbsp;space&nbsp;is&nbsp;replaced&nbsp;by&nbsp;underscores&nbsp;and&nbsp;special&nbsp;caracters&nbsp;like<br>
+quotes&nbsp;are&nbsp;stripped&nbsp;away.<br>
+&nbsp;<br>
+Examples<br>
+&nbsp;<br>
+&gt;&gt;&gt;&nbsp;<a href="#-table_csv_filename">table_csv_filename</a>('TABLE')<br>
+'table.csv'<br>
+&nbsp;<br>
+&gt;&gt;&gt;&nbsp;<a href="#-table_csv_filename">table_csv_filename</a>('A&nbsp;TABLE')<br>
+'a_table.csv'<br>
+&nbsp;<br>
+&gt;&gt;&gt;&nbsp;<a href="#-table_csv_filename">table_csv_filename</a>('"Decimal"')<br>
+'decimal.csv'</span></dd></dl>
+</td></tr></table><p>
+<table class="section">
+<tr class="decor data-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Data</strong></td></tr>
+    
+<tr><td class="decor data-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><strong>Iterator</strong> = typing.Iterator</td></tr></table>
+</body></html>
