@@ -18,7 +18,7 @@ the following python packages are necessary.
 * `mkdocs-material`
 
 Dependencies are handled by [poetry](https://python-poetry.org/), in adition, I use 
-`pytest` for testing, but this is only a commodity as currently all testing is done by 
+`pytest` for testing, but this is only a commodity as all testing is done by 
 [doctest](https://docs.python.org/3/library/doctest.html). 
 
 
