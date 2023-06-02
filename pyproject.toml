@@ -4,7 +4,9 @@ version = "0.1.0"
 description = ""
 authors = ["Rene <garciamx@gmail.com>"]
 readme = "README.md"
-packages = [{include = "fbexport_tool"}]
+
+[tool.poetry.scripts]
+fbexport-tool = "fbexport_tool:main"
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -14,6 +16,7 @@ python = "^3.11"
 mkdocs = "^1.4.3"
 mkdocstrings = {extras = ["python"], version = "^0.22.0"}
 mkdocs-material = "^9.1.15"
+flake8 = "^6.0.0"
 
 [build-system]
 requires = ["poetry-core"]

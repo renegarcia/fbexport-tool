@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """
-fbexport-tool.py
+Fbexport Tool
+=============
 
 A tool to export data from a firebird database in bulk. Run `fbexport-tool.py -h` to
 see details on how to use.
@@ -17,6 +18,7 @@ from pathlib import Path
 from datetime import datetime
 from os import makedirs
 from typing import Iterator
+from argparse import ArgumentParser
 import string
 import io
 import subprocess
@@ -157,6 +159,4 @@ def main():
 
 
 if __name__ == "__main__":
-    from argparse import ArgumentParser
-
     main()
