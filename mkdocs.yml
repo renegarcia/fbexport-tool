@@ -2,6 +2,17 @@ site_name: fbexport-tool Docs
 
 theme:
   name: "material"
+  features:
+    - navigation.footer
+    - navigation.top
 
 plugins:
   - mkdocstrings
+  - search
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://renegarcia.github.io/
+
+repo_url: https://github.com/renegarcia/fbexport-tool
